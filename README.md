@@ -1,36 +1,42 @@
-[Brain-tumor_detection
-Model for predicting wether an image is healthy or has tumor
+# Brain Tumor Detection Model
 
-Brain Tumor Detection Model
-Overview
+## Overview
 This project implements a Convolutional Neural Network (CNN) for brain tumor detection using MRI and CT scan images. The model is trained using PyTorch and can classify images into different categories based on the presence of a brain tumor.
 
-Dataset
+## Dataset
 The dataset consists of MRI and CT scan images organized into labeled folders. Images are preprocessed and transformed before training the model.
 
-Sample Dataset Images
-![image](https://github.com/user-attachments/assets/74fdf12d-9fca-4357-aa87-4d140f3bd3e9)
+### Sample Dataset Images
 
 
-Installation
+![image](https://github.com/user-attachments/assets/9a432af9-e1b1-4f90-8eb6-74aeb2aa0c0a)
+
+
+## Installation
 Ensure you have Python installed and the following dependencies:
-
+```bash
 pip install torch torchvision matplotlib pathlib
-Project Structure
+```
+
+## Project Structure
+```
 brain-tumor-detection-model/
 │-- dataset/  # Contains MRI and CT scan images
 │-- models/   # Saved model checkpoints
 │-- scripts/  # Training and evaluation scripts
 │-- README.md # Project documentation
-Code Breakdown
-Data Preprocessing
-The dataset is loaded using PyTorch's ImageFolder and transformed:
+```
 
+## Code Breakdown
+
+### Data Preprocessing
+The dataset is loaded using PyTorch's `ImageFolder` and transformed:
+```python
 import pathlib
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader, random_split
 
-dataset_path = pathlib.Path("/Path/to/your_dataset")
+dataset_path = pathlib.Path("C:/Users/PC/Downloads/mri-ct/Dataset")
 
 transform = transforms.Compose([
     transforms.Resize((256, 256)),
@@ -38,18 +44,25 @@ transform = transforms.Compose([
 ])
 
 dataset = datasets.ImageFolder(root=str(dataset_path), transform=transform)
-Splitting Data
-The dataset is split into 80% training and 20% validation:
+```
 
+### Splitting Data
+The dataset is split into 80% training and 20% validation:
+```python
 train_size = int(0.8 * len(dataset))
 val_size = len(dataset) - train_size
 train_dataset, val_dataset = random_split(dataset, [train_size, val_size])
-Data Loaders
+```
+
+### Data Loaders
+```python
 train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
-Model Architecture
-The CNN model consists of three convolutional layers followed by fully connected layers.
+```
 
+## Model Architecture
+The CNN model consists of three convolutional layers followed by fully connected layers.
+```python
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -74,9 +87,11 @@ class CNNModel(nn.Module):
         x = self.dropout(x)
         x = self.fc2(x)
         return x
-Model Training
-The training loop uses cross-entropy loss and Adam optimizer:
+```
 
+## Model Training
+The training loop uses cross-entropy loss and Adam optimizer:
+```python
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
@@ -99,12 +114,16 @@ for epoch in range(epochs):
         total += labels.size(0)
     history["train_loss"].append(running_loss / len(train_loader))
     history["train_acc"].append(correct / total)
-Training Progress Graph
+```
 
-![image](https://github.com/user-attachments/assets/175365ce-aa0d-4e55-b695-2aa7e4c325f6)
+### Training Progress Graph
 
 
-Model Evaluation
+
+![image](https://github.com/user-attachments/assets/4c266750-f366-4c69-b216-0d636cf282f1)
+
+## Model Evaluation
+```python
 model.eval()
 correct, total = 0, 0
 with torch.no_grad():
@@ -115,18 +134,33 @@ with torch.no_grad():
         correct += (predicted == labels).sum().item()
         total += labels.size(0)
 print(f'Validation Accuracy: {correct / total:.4f}')
-Saving the Model
+```
+
+## Saving the Model
+```python
 torch.save(model.state_dict(), "brain_tumor_model.pth")
 print("Model saved successfully!")
-Usage
+```
+
+## Usage
 To train the model:
-
+```bash
 python train.py
+```
 To evaluate the model:
-
+```bash
 python evaluate.py
-Future Improvements
-Fine-tuning with pre-trained models (e.g., ResNet, EfficientNet)
-Experimenting with different optimizers and learning rates
-Extending the dataset for better generalization
-](https://vscode.dev/github/godfrey-creat/brain-tumor-detection-model/blob/master/model.ipynb)
+```
+
+## Future Improvements
+- Fine-tuning with pre-trained models (e.g., ResNet, EfficientNet)
+- Experimenting with different optimizers and learning rates
+- Extending the dataset for better generalization
+
+## Contributors
+- **Godfrey Otieno** - Developer
+
+## License
+This project is licensed under the MIT License.
+
+
