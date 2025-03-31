@@ -1,4 +1,4 @@
-Brain-tumor_detection
+[Brain-tumor_detection
 Model for predicting wether an image is healthy or has tumor
 
 Brain Tumor Detection Model
@@ -129,3 +129,4 @@ Future Improvements
 Fine-tuning with pre-trained models (e.g., ResNet, EfficientNet)
 Experimenting with different optimizers and learning rates
 Extending the dataset for better generalization
+](https://vscode.dev/github/godfrey-creat/brain-tumor-detection-model/blob/master/model.ipynb)
