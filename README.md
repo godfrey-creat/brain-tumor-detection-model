@@ -22,8 +22,8 @@ pip install torch torchvision matplotlib pathlib
 ```
 brain-tumor-detection-model/
 │-- dataset/  # Contains MRI and CT scan images
-│-- models/   # Saved model checkpoints
-│-- scripts/  # Training and evaluation scripts
+│-- models/model.ipynb   # Saved model checkpoints
+│-- scripts/app.py  # Training and evaluation scripts
 │-- README.md # Project documentation
 ```
 
@@ -145,7 +145,7 @@ print("Model saved successfully!")
 ## Usage
 To train the model:
 ```bash
-python train.py
+python app.py
 ```
 To evaluate the model:
 ```bash
